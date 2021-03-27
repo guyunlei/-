@@ -70,6 +70,10 @@
           this.$router.push({name:'Donation'}).catch(err=>{
           })
         }
+        if(name == 8 ){
+          this.$router.push({name:'Information'}).catch(err=>{
+          })
+        }
       }
     }
   }

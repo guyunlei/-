@@ -47,7 +47,13 @@ const routes = [
           name: 'Donation',
           title: '捐助',
           component: () => import('../views/donation/donation.vue')
-        }
+        },
+        {
+          path: '/information',
+          name: 'Information',
+          title: '捐助',
+          component: () => import('../views/information/information.vue')
+        },
       ]
     }
   

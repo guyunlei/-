@@ -1,11 +1,13 @@
 <template>
   <div> 
-    <div class="onlin-donation">
-      <span>线上捐款</span>
+    <el-button class="online-donation" @click="changeOn"><span>线上捐款</span></el-button>
+    <el-button class="offline" @click="changeOff"><span>线下捐款</span></el-button>
+    
+    <div class="online-donation" v-if="showInfo=='on'">
+      <img src="./pay.jpg" alt="donation">
     </div>
-    <div class="offline-donation">
-      <span>线下捐助</span>
-      <el-form ref="donationForm" :model="donationForm" label-width="100px">
+    <div class="offline-donation" v-if="showInfo=='off'">
+      <el-form ref="donationForm" :model="donationForm" label-width="100px" class="form">
          <el-form-item label="捐赠人">
           <el-input v-model="donationForm.Donor" clearable size="small"></el-input>
         </el-form-item>
@@ -55,10 +57,17 @@ export default {
         material:'',//捐赠物资
       },
       dialogVisible :false,
-      donationInfo:[]
+      donationInfo:[],
+      showInfo:'on',
     }
   },
   methods: {
+    changeOn(){
+      this.showInfo = 'on'
+    },
+    changeOff(){
+       this.showInfo = 'off'
+    },
     onSubmit(){
       console.log(this.donationForm)
        this.$service.offlineDonation(this.donationForm).then(res=>{
@@ -69,13 +78,24 @@ export default {
       this.$service.getDonationInfo(this.donationForm.Donor).then(res=>{
         // this.donationInfo=res.
       })
-    }
+    },
+
   }
 }
 </script>
 
 <style lang="less" scoped>
 /deep/.el-input__inner{
-    width: 50%;
+    width: 40%;
+  }
+  .el-form-item{
+    margin-left: 30%;
+  }
+  .online-donation{
+    img{
+      position:absolute;
+      width: 25%;
+      left:35%;
+    }
   }
 </style>

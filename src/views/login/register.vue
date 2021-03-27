@@ -14,6 +14,10 @@
         <el-input v-model="infoForm.tel"></el-input>
       </el-form-item>
       <el-form-item>
+        <el-radio v-model="infoForm.gender" label="男">男</el-radio>
+        <el-radio v-model="infoForm.gender" label="女">女</el-radio>
+      </el-form-item>
+      <el-form-item>
         <el-button type="primary" @click="submitForm('infoForm')">提交注册</el-button>
         <el-button @click="resetForm('infoForm')">重置</el-button>
       </el-form-item>
@@ -29,6 +33,7 @@
           password:'',
           repassword:'',
           tel:'',
+          gender:'男',
         },
         rules: {
           username: [
@@ -50,13 +55,13 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // alert('submit!');
             this.$service.getRegister(this.infoForm).then(res=>{
               if(res.result ==true){
                 this.$message({
                   message: '注册成功！',
                   type: 'success'
                 })
+            // console.log(this.infoForm)
                 setTimeout(() => {
                   this.$router.push({name:'Login'})
                 }, 1000);
@@ -64,7 +69,7 @@
                 alert('')
               }
             })
-          } else {
+           } else {
             console.log('error submit!!');
             return false;
           }
